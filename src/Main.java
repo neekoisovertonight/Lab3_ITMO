@@ -34,5 +34,6 @@ public class Main {
         jude.kiss(ellie, Nouns.FOREHEAD.getName());
         ellie.openEyes(jude);
         reverendLaughing.speak("");
+
     }
 }
