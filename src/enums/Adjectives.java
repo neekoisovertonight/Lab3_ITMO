@@ -15,6 +15,7 @@ public enum Adjectives {
     UNUSUAL("необычно"),
     GREEN("зелёные"),
     RUBBER("резиновые"),
+    ENDLESS("вечное"),
     THIS("этого");
 
     private String name;

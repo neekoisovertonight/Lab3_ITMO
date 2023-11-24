@@ -5,8 +5,4 @@ public class BlackSuit extends RealObject{
         super(name);
     }
 
-    @Override
-    public void exist() {
-
-    }
 }

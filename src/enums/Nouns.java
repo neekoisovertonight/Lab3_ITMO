@@ -12,6 +12,7 @@ public enum Nouns {
     LACES("шнурках"),
     FOREHEAD("лоб"),
     WELLINGTONS("сапоги"),
+
     CASE("случая");
 
     private String name;

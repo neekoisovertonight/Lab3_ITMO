@@ -1,4 +1,6 @@
 package creatures.gods;
 
-public abstract class God {
+import creatures.LivingBeing;
+
+public abstract class God extends LivingBeing {
 }

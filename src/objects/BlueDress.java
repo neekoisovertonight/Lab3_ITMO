@@ -6,8 +6,4 @@ public class BlueDress extends RealObject {
         super(name);
     }
 
-    @Override
-    public void exist() {
-
-    }
 }

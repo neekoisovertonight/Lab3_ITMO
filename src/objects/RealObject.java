@@ -15,5 +15,4 @@ public abstract class RealObject {
         return this.name;
     }
 
-    public abstract void exist();
 }
