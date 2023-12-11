@@ -3,16 +3,22 @@ import enums.*;
 import creatures.humans.*;
 import objects.*;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
+        Human[] porters = new Human[4];
+        MainGod mainGod = new MainGod("Бог");
         Ellie ellie = new Ellie("Элли", 8, 3, 0);
         Louis louis = new Louis("Луис", 28, 2, 0);
         Jude jude = new Jude("Джуд", 30, 2, 0);
         Hedge hedge = new Hedge("Гэдж", 2, 0, 0);
         Norma norma = new Norma("Норма", 40, 0, 0);
         Parishioner parishioners = new Parishioner("Прихожане", 0, 0, 0);
-        MainGod mainGod = new MainGod("Бог");
         Reverend reverendLaughing = new Reverend("Преподобный Лафлин", 40, 0, 0, mainGod);
+        JudeNephew firstNephew = new JudeNephew("Первый племянник Джуда", 30, 0, 0);
+        JudeNephew secondNephew = new JudeNephew("Второй племянник Джуда", 31, 0, 0);
+        NormaBrother normaBrother = new NormaBrother("Брат Нормы", 25, 0, 0);
         BlackSuit blackSuit = new BlackSuit();
         BlueDress blueDress = new BlueDress();
         System.out.println("Непонимание Элли: " + ellie.getConfusion());
@@ -40,7 +46,20 @@ public class Main {
         reverendLaughing.speak("");
         ellie.grabPerson(louis);
         louis.whisper("message1");
-
+        porters[0] = louis;
+        norma.grabAndCarry(porters);
+        louis.almostSit();
+        louis.putHand(ellie);
+        louis.whisper("message2");
+        porters[1] = firstNephew;
+        porters[2] = secondNephew;
+        porters[3] = normaBrother;
+        norma.grabAndCarry(porters);
+        ellie.speak("phrase1");
+        jude.comeClose(firstNephew);
+        jude.comeClose(secondNephew);
+        jude.comeClose(normaBrother);
+        louis.lookBack();
         parishioners.goAway();
         parishioners.cry();
         louis.speak("phrase1");

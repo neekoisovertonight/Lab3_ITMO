@@ -151,18 +151,18 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
     public void grabPerson(Louis louis){
         louis.getUp();
         if (louis.isReadyToStand()) {
-            fear = true;
-            System.out.println(name + " хватает " + louis.getName() + ". Испуг " + name + ": " + fear);
+            setFear(true);
+            System.out.println(name + " хватает " + louis.getName() + ". Испуг " + name + ": " + isFear() + ".");
             whisper("message1");
         } else {
-            System.out.println(name + " не может схватить. Испуг " + name + ": " + fear);
+            System.out.println(name + " не может схватить. Испуг " + name + ": " + isFear() + ".");
         }
     }
 
     public void catchHand(Louis louis){
         louis.go();
-        fear = false;
-        System.out.println(name + " ловит его руку. Испуг: " + fear);
+        setFear(true);
+        System.out.println(name + " ловит его руку. Испуг: " + isFear() + ".");
     }
 }
 

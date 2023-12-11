@@ -1,6 +1,7 @@
 package creatures.humans;
 
 import creatures.humans.moves.IsDead;
+import creatures.humans.moves.IsPorter;
 import creatures.humans.moves.Speakable;
 
 public class Norma extends Human implements IsDead {
@@ -33,10 +34,26 @@ public class Norma extends Human implements IsDead {
     @Override
     public void blessing() {
         blessing = true;
-        System.out.println("Вечное благословление даровано. Благословление " + name + ": " + blessing);
+        System.out.println("Вечное благословление даровано. Благословление " + name + ": " + isBlessing() + ".");
     }
-    public void becomeHappy(){
-        happiness++;
-        System.out.println(name + " рада. Радость Нормы: " + happiness);
+
+    public void becomeHappy() {
+        setHappiness(getHappiness() + 1);
+        System.out.println(name + " рада. Радость Нормы: " + getHappiness() + ".");
+    }
+
+    public void grabAndCarry(Human[] porters) {
+        int numberOfPorters = 0;
+        for (Human porter : porters) {
+            if (porter instanceof IsPorter) {
+                ((IsPorter) porter).carry();
+                numberOfPorters++;
+            }
+        }
+        if (numberOfPorters == 4) {
+            System.out.println("Носильщиков четверо. Они могут нести " + getName() + ".");
+        } else {
+            System.out.println("Носильщиков всего " + numberOfPorters + ". Это недостаточно, чтобы нести " + getName() + ".");
+        }
     }
 }

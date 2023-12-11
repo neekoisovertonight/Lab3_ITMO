@@ -3,7 +3,7 @@ package creatures.humans;
 import enums.*;
 import creatures.humans.moves.*;
 
-public class Louis extends Human implements Seatable, Speakable {
+public class Louis extends Human implements Seatable, Speakable, IsPorter {
 
     public boolean getBlindness() {
         return blindness;
@@ -121,15 +121,30 @@ public class Louis extends Human implements Seatable, Speakable {
 
     public void getUp() {
         readyToStand = true;
-        System.out.println(name + " собирается вставать. Готовность вставать Луиса: " + readyToStand);
+        System.out.println(name + " собирается вставать. Готовность вставать: " + isReadyToStand() + ".");
     }
 
     public void go(){
-
         System.out.print(name + " почти уходит. ");
     }
 
     public void almostSit(){
+        setReadyToStand(false);
+        System.out.println(name + " на момент приседает. Готовность вставать: " + isReadyToStand() + ".");
+    }
 
+    @Override
+    public void carry() {
+        System.out.println(name + " является носильщиком.");
+    }
+
+    public void putHand(Ellie ellie){
+        ellie.setFear(false);
+        System.out.println(name + " кладет руку на плечо " + ellie.getName() + ". Испуг Элли: " + ellie.isFear() + ".");
+    }
+
+    public void lookBack(){
+        setSurprise(getSurprise() + 1);
+        System.out.println(getName() + " оглядывается. Удивление: " + getSurprise() + ".");
     }
 }

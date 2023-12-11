@@ -14,6 +14,7 @@ public class Jude extends Human implements OtherMoves, Speakable {
     }
 
     private int style;
+
     public Jude(String name, int age, int fatigue, int surprise) {
         super(name, age, fatigue, surprise);
         this.style = 0;
@@ -35,7 +36,7 @@ public class Jude extends Human implements OtherMoves, Speakable {
             System.out.print(Time.TODAY.getName() + " " + name + " надел " + clothing + ". Стиль: " + getStyle() + ". ");
         } else {
             setStyle(0);
-            System.out.println(Adjectives.USUAL.getName() + " " + name + " надевает " + Adjectives.GREEN.getName() + " " + Adjectives.RUBBER.getName() + " " + Nouns.WELLINGTONS.getName() + ". Стиль: " + getStyle());
+            System.out.println(Adjectives.USUAL.getName() + " " + name + " надевает " + Adjectives.GREEN.getName() + " " + Adjectives.RUBBER.getName() + " " + Nouns.WELLINGTONS.getName() + ". Стиль: " + getStyle() + ".");
         }
     }
 
@@ -48,14 +49,23 @@ public class Jude extends Human implements OtherMoves, Speakable {
     public void hear() {
     }
 
-    public void lean(Ellie ellie){
+    public void lean(Ellie ellie) {
         System.out.print(name + " наклоняется к " + ellie.getName() + ". ");
         ellie.setCalm(false);
         ellie.stayCalm();
     }
+
     public void kiss(Ellie ellie, String partOfBody) {
         System.out.print(name + " целует " + ellie.getName() + " " + Prepositions.INTO.getName() + " " + partOfBody + ". ");
         ellie.setCalm(true);
         ellie.stayCalm();
+    }
+
+    public void comeClose(Human human) {
+        if (human instanceof IsPorter) {
+            System.out.println(human.getName() + " подходит к " + getName() + ".");
+        } else {
+            System.out.println(human.getName() + " незачем подходить к " + getName() + ".");
+        }
     }
 }
