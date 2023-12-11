@@ -1,25 +1,34 @@
 package creatures.humans;
 
 import enums.*;
-import creatures.humans.moves.OtherMoves;
-import creatures.humans.moves.Speakable;
-import creatures.humans.moves.Seatable;
+import creatures.humans.moves.*;
 
 public class Louis extends Human implements Seatable, Speakable {
 
-    public int getBlindness() {
+    public boolean getBlindness() {
         return blindness;
     }
 
-    public void setBlindness(int blindness) {
+    public void setBlindness(boolean blindness) {
         this.blindness = blindness;
     }
 
-    private int blindness;
+    private boolean blindness;
+
+    public boolean isReadyToStand() {
+        return readyToStand;
+    }
+
+    public void setReadyToStand(boolean readyToStand) {
+        this.readyToStand = readyToStand;
+    }
+
+    private boolean readyToStand;
 
     public Louis(String name, int age, int fatigue, int surprise) {
         super(name, age, fatigue, surprise);
-        this.blindness = 1;
+        this.blindness = true;
+        this.readyToStand = false;
     }
 
     @Override
@@ -63,7 +72,8 @@ public class Louis extends Human implements Seatable, Speakable {
 
     @Override
     public void hear() {
-        System.out.println(name + " слышит это.");
+        setSurprise(getSurprise() + 1);
+        System.out.println(name + " слышит это. Удивление: " + getSurprise() + ".");
     }
 
 
@@ -78,14 +88,12 @@ public class Louis extends Human implements Seatable, Speakable {
     public void seeFromSide(String scenario, Ellie ellie, Hedge hedge) {
         if (ellie != null) {
             if (Adjectives.RARELY.getName().equals(scenario)) {
-                System.out.println(name + " смотрит на " + ellie.getName() + " со стороны. Это происходит " + scenario + ".");
-                for (int i = blindness; i > 0; i--) {
-                    blindness -= 1;
-                    System.out.println(name + " чувствует, как его слепота из-за любви уменьшается. Уровень слепоты: " + blindness);
-                }
-
+                setSurprise(getSurprise() + 1);
+                System.out.println(name + " смотрит на " + ellie.getName() + " со стороны. Это происходит " + scenario + ". Удивление: " + getSurprise());
+                blindness = false;
+                System.out.println(name + " чувствует, как его слепота из-за любви уменьшается. Cлепота из-за любви: " + getBlindness());
             } else if (Adjectives.USUAL.getName().equals(scenario)) {
-                System.out.println(scenario + " " + name + " ослеплен любовью к " + ellie.getName() + " и " + hedge.getName() + "у.");
+                System.out.println(scenario + " " + name + " ослеплен любовью к " + ellie.getName() + " и " + hedge.getName() + "у. Слепота из-за любви: " + getBlindness());
             }
         } else {
             System.out.println(name + " не может посмотреть на ничто.");
@@ -107,7 +115,21 @@ public class Louis extends Human implements Seatable, Speakable {
     }
 
     public void seeOnly(Human human) {
-        setSurprise(getSurprise()+1);
+        setSurprise(getSurprise() + 1);
         System.out.println(name + " видел " + human.getName() + " только в обычной одежде. Удивление Луиса: " + getSurprise());
+    }
+
+    public void getUp() {
+        readyToStand = true;
+        System.out.println(name + " собирается вставать. Готовность вставать Луиса: " + readyToStand);
+    }
+
+    public void go(){
+
+        System.out.print(name + " почти уходит. ");
+    }
+
+    public void almostSit(){
+
     }
 }

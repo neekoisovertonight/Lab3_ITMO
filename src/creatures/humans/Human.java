@@ -2,6 +2,8 @@ package creatures.humans;
 
 import creatures.LivingBeing;
 
+import java.util.Objects;
+
 abstract public class Human extends LivingBeing {
 
     protected String name;
@@ -53,4 +55,25 @@ abstract public class Human extends LivingBeing {
         this.surprise = surprise;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Human human)) return false;
+        return getAge() == human.getAge() && Objects.equals(getName(), human.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAge());
+    }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", fatigue=" + fatigue +
+                ", surprise=" + surprise +
+                "} ";
+    }
 }

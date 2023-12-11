@@ -8,12 +8,22 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
     private int beauty;
     private boolean isCalm;
     private int confusion;
+    private boolean fear;
+
+    public boolean isFear() {
+        return fear;
+    }
+
+    public void setFear(boolean fear) {
+        this.fear = fear;
+    }
 
     public Ellie(String name, int age, int fatigue, int surprise) {
         super(name, age, fatigue, surprise);
         this.beauty = 0;
         this.isCalm = true;
         this.confusion = 0;
+        this.fear = false;
     }
 
     public void whisper(String message) {
@@ -86,9 +96,9 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
         }
     }
 
-    @Override
     public void neckCrack() {
-        System.out.print(Prepositions.HAS.getName() + " неё" + " хрустит " + Nouns.NECK.getName() + ". ");
+        setFatigue(getFatigue() + 1);
+        System.out.print(Prepositions.HAS.getName() + " неё" + " хрустит " + Nouns.NECK.getName() + ". Усталость: " + getFatigue() + ". ");
     }
 
     @Override
@@ -104,7 +114,8 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
 
     public void be(String location) {
         if (location.equals(Locations.CHURCH.getName())) {
-            System.out.println(name + " " + Adjectives.RARELY.getName() + " бывает " + location + ".");
+            setSurprise(getSurprise() + 1);
+            System.out.println(name + " " + Adjectives.RARELY.getName() + " бывает " + location + ". Удивление: " + getSurprise());
         } else if (location.equals(Locations.FUNERAL.getName())) {
             setFatigue(4);
             System.out.println(name + " " + Adjectives.FIRST.getName() + " " + Nouns.TIME.getName() + " " + location + ". Это сильно влияет на неё. Усталость: " + getFatigue());
@@ -129,11 +140,29 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
         System.out.println(name + " чувствует непонимание происходящего вокруг себя. Непонимание Элли: " + getConfusion() + ".");
     }
 
-    public void openEyes(Jude jude) {
+    public void openEyes(Jude jude, Norma norma) {
         jude.speak("");
-        System.out.print(name + " широко открывает глаза и смотрит на " + jude.getName() + ".");
+        norma.becomeHappy();
+        System.out.print(name + " широко открывает глаза и смотрит на " + jude.getName() + ". ");
         confusion++;
-        System.out.println(" Удивление увеличено: " + confusion + ".");
+        System.out.println("Удивление " + name + " увеличено: " + confusion + ".");
+    }
+
+    public void grabPerson(Louis louis){
+        louis.getUp();
+        if (louis.isReadyToStand()) {
+            fear = true;
+            System.out.println(name + " хватает " + louis.getName() + ". Испуг " + name + ": " + fear);
+            whisper("message1");
+        } else {
+            System.out.println(name + " не может схватить. Испуг " + name + ": " + fear);
+        }
+    }
+
+    public void catchHand(Louis louis){
+        louis.go();
+        fear = false;
+        System.out.println(name + " ловит его руку. Испуг: " + fear);
     }
 }
 
