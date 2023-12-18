@@ -77,7 +77,7 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
     }
 
 
-    public void performHear(OtherMoves otherMoves) {
+    public void performHear(EllieMoves otherMoves) {
         if (otherMoves != null) {
             otherMoves.bowHead();
             otherMoves.neckCrack();
@@ -86,13 +86,14 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
     }
 
     public void seeFromSide(String scenario, Ellie ellie, Hedge hedge) {
-        if (ellie != null) {
+        if (ellie != null && hedge != null) {
             if (Adjectives.RARELY.getName().equals(scenario)) {
                 setSurprise(getSurprise() + 1);
                 System.out.println(name + " смотрит на " + ellie.getName() + " со стороны. Это происходит " + scenario + ". Удивление: " + getSurprise());
                 blindness = false;
                 System.out.println(name + " чувствует, как его слепота из-за любви уменьшается. Cлепота из-за любви: " + getBlindness());
             } else if (Adjectives.USUAL.getName().equals(scenario)) {
+                setBlindness(true);
                 System.out.println(scenario + " " + name + " ослеплен любовью к " + ellie.getName() + " и " + hedge.getName() + "у. Слепота из-за любви: " + getBlindness());
             }
         } else {
@@ -100,18 +101,13 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         }
     }
 
-    public void observeEllieTransition(Ellie ellie) {
-        if (ellie != null) {
-            ellie.startTransition();
-            ellie.confusion();
-        } else {
-            System.out.println("Луис не может наблюдать за ничем.");
-        }
-    }
-
     public void think(Ellie ellie) {
-        System.out.print("Теперь " + name + " думает, что " + ellie.getName() + " - " + Adjectives.CLASSIC.getName() + " " + Nouns.EXAMPLE.getName() + " " + Nouns.CHILD.getName() + ", " + Adjectives.WHICH.getName() + " ");
-        observeEllieTransition(ellie);
+        if (!blindness && ellie != null) {
+            System.out.print("Теперь " + name + " думает, что " + ellie.getName() + " - " + Adjectives.CLASSIC.getName() + " " + Nouns.EXAMPLE.getName() + " " + Nouns.CHILD.getName() + ", " + Adjectives.WHICH.getName() + " ");
+            ellie.startTransition();
+        } else {
+            System.out.println(name + " ослеплён и не может думать.");
+        }
     }
 
     public void seeOnly(Human human) {
@@ -124,11 +120,11 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         System.out.println(name + " собирается вставать. Готовность вставать: " + isReadyToStand() + ".");
     }
 
-    public void go(){
+    public void go() {
         System.out.print(name + " почти уходит. ");
     }
 
-    public void almostSit(){
+    public void almostSit() {
         setReadyToStand(false);
         System.out.println(name + " на момент приседает. Готовность вставать: " + isReadyToStand() + ".");
     }
@@ -138,13 +134,23 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         System.out.println(name + " является носильщиком.");
     }
 
-    public void putHand(Ellie ellie){
+    @Override
+    public void comeClose(Human human) {
+        System.out.println(getName() + " подходит к " + human.getName() + ".");
+    }
+
+    public void putHand(Ellie ellie) {
         ellie.setFear(false);
         System.out.println(name + " кладет руку на плечо " + ellie.getName() + ". Испуг Элли: " + ellie.isFear() + ".");
     }
 
-    public void lookBack(){
-        setSurprise(getSurprise() + 1);
-        System.out.println(getName() + " оглядывается. Удивление: " + getSurprise() + ".");
+    public void lookBack(NormaBrother brother, JudeNephew nephewOne, JudeNephew nephewTwo, Jude jude) {
+        if (brother.isClose() && nephewOne.isClose() && nephewTwo.isClose()) {
+            setSurprise(getSurprise() + 1);
+            System.out.println(getName() + " оглядывается. Остальные уже подошли. Удивление: " + getSurprise() + ".");
+        } else {
+            setSurprise(getSurprise() - 1);
+            System.out.println(this.name + " оглядывается. Остальные ещё не подошли. Удивление: " + getSurprise() + ".");
+        }
     }
 }

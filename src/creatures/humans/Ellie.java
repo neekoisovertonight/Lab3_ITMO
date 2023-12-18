@@ -4,7 +4,7 @@ import creatures.humans.moves.*;
 import enums.*;
 
 
-public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
+public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wearable {
     private int beauty;
     private boolean isCalm;
     private int confusion;
@@ -132,11 +132,9 @@ public class Ellie extends Human implements Seatable, Speakable, OtherMoves {
 
     public void startTransition() {
         setFatigue(getFatigue() + 1);
-        System.out.println("переживает важный переходный этап своей жизни. Усталость " + name + ": " + getFatigue() + ".");
-    }
-
-    public void confusion() {
+        setFear(true);
         setConfusion(getConfusion() + 1);
+        System.out.println("переживает важный переходный этап своей жизни. Усталость: " + getFatigue() + ". Страх: " + isFear() + ".");
         System.out.println(name + " чувствует непонимание происходящего вокруг себя. Непонимание Элли: " + getConfusion() + ".");
     }
 

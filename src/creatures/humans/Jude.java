@@ -3,7 +3,7 @@ package creatures.humans;
 import enums.*;
 import creatures.humans.moves.*;
 
-public class Jude extends Human implements OtherMoves, Speakable {
+public class Jude extends Human implements Wearable, Speakable {
 
     public int getStyle() {
         return style;
@@ -18,15 +18,6 @@ public class Jude extends Human implements OtherMoves, Speakable {
     public Jude(String name, int age, int fatigue, int surprise) {
         super(name, age, fatigue, surprise);
         this.style = 0;
-    }
-
-
-    @Override
-    public void bowHead() {
-    }
-
-    @Override
-    public void neckCrack() {
     }
 
     @Override
@@ -59,13 +50,5 @@ public class Jude extends Human implements OtherMoves, Speakable {
         System.out.print(name + " целует " + ellie.getName() + " " + Prepositions.INTO.getName() + " " + partOfBody + ". ");
         ellie.setCalm(true);
         ellie.stayCalm();
-    }
-
-    public void comeClose(Human human) {
-        if (human instanceof IsPorter) {
-            System.out.println(human.getName() + " подходит к " + getName() + ".");
-        } else {
-            System.out.println(human.getName() + " незачем подходить к " + getName() + ".");
-        }
     }
 }

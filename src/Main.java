@@ -56,10 +56,11 @@ public class Main {
         porters[3] = normaBrother;
         norma.grabAndCarry(porters);
         ellie.speak("phrase1");
-        jude.comeClose(firstNephew);
-        jude.comeClose(secondNephew);
-        jude.comeClose(normaBrother);
-        louis.lookBack();
+        normaBrother.comeClose(jude);
+        firstNephew.comeClose(jude);
+        secondNephew.comeClose(jude);
+        louis.lookBack(normaBrother, firstNephew, secondNephew,jude);
+        louis.comeClose(jude);
         parishioners.goAway();
         parishioners.cry();
         louis.speak("phrase1");
