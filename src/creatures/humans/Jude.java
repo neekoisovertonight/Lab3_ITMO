@@ -36,10 +36,6 @@ public class Jude extends Human implements Wearable, Speakable {
         System.out.print(name + " говорит: Молодец, что пришла, малышка. Думаю, Норма тоже рада. ");
     }
 
-    @Override
-    public void hear() {
-    }
-
     public void lean(Ellie ellie) {
         System.out.print(name + " наклоняется к " + ellie.getName() + ". ");
         ellie.setCalm(false);

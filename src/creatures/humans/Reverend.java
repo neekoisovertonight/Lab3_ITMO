@@ -21,9 +21,4 @@ public class Reverend extends Human implements Speakable {
     public void speak(String phrase) {
         System.out.println(name + " говорит: Готовы ли носильщики?");
     }
-
-    @Override
-    public void hear() {
-
-    }
 }

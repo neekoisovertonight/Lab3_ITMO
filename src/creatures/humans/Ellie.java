@@ -4,7 +4,7 @@ import creatures.humans.moves.*;
 import enums.*;
 
 
-public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wearable {
+public class Ellie extends Human implements Seatable, Speakable, Whisperable, EllieMoves, Wearable {
     private int beauty;
     private boolean isCalm;
     private int confusion;
@@ -25,17 +25,9 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
         this.confusion = 0;
         this.fear = false;
     }
-
+    @Override
     public void whisper(String message) {
-        System.out.print(name + " шепчет: ");
-        switch (message) {
-            case "message1":
-                System.out.println("Папа! Ты куда?");
-                break;
-            case "message2":
-                System.out.println("Смотри не урони ее.");
-                break;
-        }
+        System.out.println(name + " шепчет: " + message + ".");
     }
 
     public void bowHead() {
@@ -43,23 +35,8 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
     }
 
     @Override
-    public void hear() {
-    }
-
-    @Override
     public void speak(String phrase) {
-        System.out.print(name + " говорит: ");
-        switch (phrase) {
-            case "phrase1":
-                System.out.println("А как я тебя найду?");
-                break;
-            case "phrase2":
-                System.out.println("Ну хорошо, только не потеряйся.");
-                break;
-            case "phrase3":
-                System.out.println("Папа?");
-                break;
-        }
+        System.out.println(name + " говорит: " + phrase);
     }
 
     public int getBeauty() {
@@ -88,11 +65,15 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
 
     @Override
     public void sit(Human human) {
-        {
-            if (getFatigue() > 0) {
-                setFatigue(getFatigue() - 1);
+        if (getFatigue() > 0) {
+            setFatigue(getFatigue() - 1);
+            if (human != null) {
+                System.out.println(this.name + " сидит вместе с " + human.getName() + ". Усталость Элли: " + getFatigue());
+            } else {
+                System.out.println(name + " сидит " + Prepositions.ON.getName() + " " + Locations.BENCH.getName() + ". Усталость Элли: " + getFatigue());
             }
-            System.out.println(name + " сидит " + Prepositions.ON.getName() + " " + Locations.BENCH.getName() + ". Усталость Элли: " + getFatigue());
+        } else {
+            System.out.println("Усталость: " + getFatigue() + ". " + this.name + " чувствует себя отдохнувшей. Она не хочет сидеть.");
         }
     }
 
@@ -112,14 +93,14 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
 
     }
 
-    public void be(String location) {
-        if (location.equals(Locations.CHURCH.getName())) {
-            setSurprise(getSurprise() + 1);
-            System.out.println(name + " " + Adjectives.RARELY.getName() + " бывает " + location + ". Удивление: " + getSurprise());
-        } else if (location.equals(Locations.FUNERAL.getName())) {
-            setFatigue(4);
-            System.out.println(name + " " + Adjectives.FIRST.getName() + " " + Nouns.TIME.getName() + " " + location + ". Это сильно влияет на неё. Усталость: " + getFatigue());
-        }
+    public void beInChurch() {
+        setSurprise(getSurprise() + 1);
+        System.out.println(name + " " + Adjectives.RARELY.getName() + " бывает " + Locations.CHURCH.getName() + ". Удивление: " + getSurprise());
+    }
+
+    public void beOnFuneral() {
+        setFatigue(4);
+        System.out.println(name + " " + Adjectives.FIRST.getName() + " " + Nouns.TIME.getName() + " " + Locations.FUNERAL.getName()  + ". Это сильно влияет на неё. Усталость: " + getFatigue());
     }
 
     public void stayCalm() {
@@ -131,10 +112,12 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
     }
 
     public void startTransition() {
-        setFatigue(getFatigue() + 1);
         setFear(true);
+        System.out.println("переживает важный переходный этап своей жизни. Страх: " + isFear() + ".");
+    }
+
+    public void getConfused() {
         setConfusion(getConfusion() + 1);
-        System.out.println("переживает важный переходный этап своей жизни. Усталость: " + getFatigue() + ". Страх: " + isFear() + ".");
         System.out.println(name + " чувствует непонимание происходящего вокруг себя. Непонимание Элли: " + getConfusion() + ".");
     }
 
@@ -146,18 +129,18 @@ public class Ellie extends Human implements Seatable, Speakable, EllieMoves, Wea
         System.out.println("Удивление " + name + " увеличено: " + confusion + ".");
     }
 
-    public void grabPerson(Louis louis){
+    public void grabPerson(Louis louis) {
         louis.getUp();
         if (louis.isReadyToStand()) {
             setFear(true);
             System.out.println(name + " хватает " + louis.getName() + ". Испуг " + name + ": " + isFear() + ".");
-            whisper("message1");
+            whisper("Папа! Ты куда?");
         } else {
             System.out.println(name + " не может схватить. Испуг " + name + ": " + isFear() + ".");
         }
     }
 
-    public void catchHand(Louis louis){
+    public void catchHand(Louis louis) {
         louis.go();
         setFear(true);
         System.out.println(name + " ловит его руку. Испуг: " + isFear() + ".");

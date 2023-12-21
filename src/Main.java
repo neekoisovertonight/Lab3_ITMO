@@ -1,9 +1,7 @@
-import creatures.gods.MainGod;
+import creatures.gods.*;
 import enums.*;
 import creatures.humans.*;
 import objects.*;
-
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,12 +25,12 @@ public class Main {
         System.out.println("Усталость Луиса: " + louis.getFatigue());
         System.out.println("Удивление Луиса: " + louis.getSurprise());
         System.out.println("Слепота из-за любви Луиса: " + louis.getBlindness());
-        ellie.sit(ellie);
+        ellie.sit(null);
         louis.sit(ellie);
         ellie.wear(blueDress.getName());
         louis.performHear(ellie);
-        ellie.be(Locations.CHURCH.getName());
-        ellie.be(Locations.FUNERAL.getName());
+        ellie.beInChurch();
+        ellie.beOnFuneral();
         louis.seeFromSide(Adjectives.USUAL.getName(), ellie, hedge);
         louis.seeFromSide(Adjectives.RARELY.getName(), ellie, hedge);
         louis.think(ellie);
@@ -45,30 +43,30 @@ public class Main {
         reverendLaughing.pray(norma, mainGod);
         reverendLaughing.speak("");
         ellie.grabPerson(louis);
-        louis.whisper("message1");
+        louis.whisper("Я один из носильщиков, дорогая");
         porters[0] = louis;
         norma.grabAndCarry(porters);
         louis.almostSit();
         louis.putHand(ellie);
-        louis.whisper("message2");
+        louis.whisper("Мы должны вынести Норму. Вчетвером — я, двое племянников Джуда и брат Нормы");
         porters[1] = firstNephew;
         porters[2] = secondNephew;
         porters[3] = normaBrother;
         norma.grabAndCarry(porters);
-        ellie.speak("phrase1");
+        ellie.speak("А как я тебя найду?");
         normaBrother.comeClose(jude);
         firstNephew.comeClose(jude);
         secondNephew.comeClose(jude);
-        louis.lookBack(normaBrother, firstNephew, secondNephew,jude);
+        louis.lookBack(normaBrother, firstNephew, secondNephew);
         louis.comeClose(jude);
         parishioners.goAway();
         parishioners.cry();
-        louis.speak("phrase1");
-        ellie.speak("phrase2");
-        louis.speak("phrase2");
+        louis.speak("Сойдешь со ступенек, и я буду там.");
+        ellie.speak("Ну хорошо, только не потеряйся.");
+        louis.speak("Нет-нет.");
         ellie.catchHand(louis);
-        ellie.speak("phrase3");
-        louis.speak("phrase3");
-        ellie.whisper("message2");
+        ellie.speak("Папа?");
+        louis.speak("Что, малышка?");
+        ellie.whisper("Смотри не урони ее");
     }
 }

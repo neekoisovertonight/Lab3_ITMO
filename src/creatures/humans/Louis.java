@@ -3,7 +3,7 @@ package creatures.humans;
 import enums.*;
 import creatures.humans.moves.*;
 
-public class Louis extends Human implements Seatable, Speakable, IsPorter {
+public class Louis extends Human implements Seatable, Speakable, Whisperable, Hearable, IsPorter {
 
     public boolean getBlindness() {
         return blindness;
@@ -33,40 +33,20 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
 
     @Override
     public void sit(Human human) {
-        {
-            if (getFatigue() > 0) {
+        if (getFatigue() > 0) {
                 setFatigue(getFatigue() - 1);
             }
             System.out.println(name + " сидит " + Prepositions.ON.getName() + " " + Locations.BENCH.getName() + " " + Prepositions.NEXTTO.getName() + " " + Prepositions.WITH.getName() + " " + human.getName() + ". Усталость: " + getFatigue());
-        }
     }
 
     @Override
     public void speak(String phrase) {
-        System.out.print(name + " говорит: ");
-        switch (phrase) {
-            case "phrase1":
-                System.out.println("Сойдешь со ступенек, и я буду там.");
-                break;
-            case "phrase2":
-                System.out.println("Нет-нет.");
-                break;
-            case "phrase3":
-                System.out.println("Что, малышка?");
-                break;
-        }
+        System.out.println(name + " говорит: " + phrase);
     }
 
+    @Override
     public void whisper(String message) {
-        System.out.print(name + " шепчет: ");
-        switch (message) {
-            case "message1":
-                System.out.println("Я один из носильщиков, дорогая.");
-                break;
-            case "message2":
-                System.out.println("Мы должны вынести Норму. Вчетвером — я, двое племянников Джуда и брат Нормы.");
-                break;
-        }
+        System.out.println(name + " шепчет: " + message + ".");
     }
 
 
@@ -85,16 +65,16 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         }
     }
 
-    public void seeFromSide(String scenario, Ellie ellie, Hedge hedge) {
-        if (ellie != null && hedge != null) {
+    public void seeFromSide(String scenario, Human human, Human human1) {
+        if (human instanceof Ellie && human1 instanceof Hedge) {
             if (Adjectives.RARELY.getName().equals(scenario)) {
                 setSurprise(getSurprise() + 1);
-                System.out.println(name + " смотрит на " + ellie.getName() + " со стороны. Это происходит " + scenario + ". Удивление: " + getSurprise());
+                System.out.println(name + " смотрит на " + human.getName() + " со стороны. Это происходит " + scenario + ". Удивление: " + getSurprise());
                 blindness = false;
                 System.out.println(name + " чувствует, как его слепота из-за любви уменьшается. Cлепота из-за любви: " + getBlindness());
             } else if (Adjectives.USUAL.getName().equals(scenario)) {
                 setBlindness(true);
-                System.out.println(scenario + " " + name + " ослеплен любовью к " + ellie.getName() + " и " + hedge.getName() + "у. Слепота из-за любви: " + getBlindness());
+                System.out.println(scenario + " " + name + " ослеплен любовью к " + human.getName() + " и " + human1.getName() + ". Слепота из-за любви: " + getBlindness());
             }
         } else {
             System.out.println(name + " не может посмотреть на ничто.");
@@ -105,6 +85,7 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         if (!blindness && ellie != null) {
             System.out.print("Теперь " + name + " думает, что " + ellie.getName() + " - " + Adjectives.CLASSIC.getName() + " " + Nouns.EXAMPLE.getName() + " " + Nouns.CHILD.getName() + ", " + Adjectives.WHICH.getName() + " ");
             ellie.startTransition();
+            ellie.getConfused();
         } else {
             System.out.println(name + " ослеплён и не может думать.");
         }
@@ -144,7 +125,7 @@ public class Louis extends Human implements Seatable, Speakable, IsPorter {
         System.out.println(name + " кладет руку на плечо " + ellie.getName() + ". Испуг Элли: " + ellie.isFear() + ".");
     }
 
-    public void lookBack(NormaBrother brother, JudeNephew nephewOne, JudeNephew nephewTwo, Jude jude) {
+    public void lookBack(NormaBrother brother, JudeNephew nephewOne, JudeNephew nephewTwo) {
         if (brother.isClose() && nephewOne.isClose() && nephewTwo.isClose()) {
             setSurprise(getSurprise() + 1);
             System.out.println(getName() + " оглядывается. Остальные уже подошли. Удивление: " + getSurprise() + ".");
